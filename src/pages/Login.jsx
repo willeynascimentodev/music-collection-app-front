@@ -1,13 +1,17 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login, reset } from '../features/auth/authSlice';
 
 function Login() {
 
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState({
-        email: '',
+        username: '',
         password: ''
     });
 
-    const { email, password } = formData;
+    const { username, password } = formData;
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -16,21 +20,33 @@ function Login() {
         }));
     };
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        const user = {
+            username,
+            password
+        }
+
+        console.log(user);
+        dispatch(login(user));
+    };
+
     return(
         <section className='pt-3 container'>
             <h1 className='mx-auto text-center'>Login</h1>
-            <form>
+            <form onSubmit={ onSubmit }>
                 <div className="form-group">
                     <label>
                         E-mail
                     </label>
-                    <input type="email" 
+                    <input type="text" 
                         className="mt-1 form-control"
-                        id="email"
-                        name="email"
-                        value={ email }
+                        id="username"
+                        name="username"
+                        value={ username }
                         onChange={ onChange }
-                        placeholder="Your Email"
+                        placeholder="Your username"
                         required
                     />
                 </div>

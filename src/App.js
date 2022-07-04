@@ -1,4 +1,3 @@
-
 import './main.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ListArtists from './pages/ListArtists'
@@ -9,6 +8,8 @@ import Login from './pages/Login'
 import Registration from './pages/Registration'
 import Header from './components/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/albums" element={ <ListAlbums /> } />
         </Routes>
       </Router>
+      <ToastContainer />
     </>
   );
 }

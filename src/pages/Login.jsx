@@ -1,11 +1,14 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuthStatus } from '../hooks/useAuthStatus';
 
 function Login() {
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    const { loggedIn, loading } = useAuthStatus();
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -23,14 +26,26 @@ function Login() {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        const user = {
+        const userData = {
             username,
             password
         }
 
-        console.log(user);
-        dispatch(login(user));
+        dispatch(login(userData));
     };
+
+    const { user } = useSelector( 
+        (state) => state.auth    
+    );
+
+    useEffect(() => {
+
+        if(user){
+            navigate('/artists')
+        }
+
+        dispatch(reset)
+    }, [user, navigate])
 
     return(
         <section className='pt-3 container'>

@@ -45,7 +45,7 @@ function Login() {
         }
 
         dispatch(reset)
-    }, [user, navigate])
+    }, [user, navigate]);
 
     return(
         <section className='pt-3 container'>

@@ -13,7 +13,7 @@ function ListArtists() {
 
 
     return(
-        <section className='pt-3 container'>
+        <section className='pt-3 container card mt-5 p-5'>
             <div className='d-flex justify-content-between'>
                 <h2 className='d-inline'>Artists</h2>
             </div>

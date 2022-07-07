@@ -6,7 +6,7 @@ import AlbumItem from '../components/AlbumItem';
 
 function ListAlbums() {
 
-    const { albums, isSuccess } = useSelector((state) => state.albums)
+    const { albums, isSuccess, isLoading } = useSelector((state) => state.albums)
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -22,12 +22,13 @@ function ListAlbums() {
         dispatch(getAlbums());
     }, [dispatch]);
 
+
     const newAlbum = () => {
-        navigate('/edit-album');
+        navigate('/create-album');
     }
 
     return(
-        <section className='pt-3 container'>
+        <section className='pt-3 container card mt-5 p-5'>
 
             <div className='d-flex justify-content-between'>
                 <h2 className='d-inline'>Albums</h2>
@@ -60,6 +61,9 @@ function ListAlbums() {
             </div>
         </section>
     )
+  
+
+  
 } 
 
 export default ListAlbums;

@@ -48,7 +48,7 @@ function Login() {
     }, [user, navigate]);
 
     return(
-        <section className='pt-3 container'>
+        <section className='pt-3 container card mt-5 p-5'>
             <h1 className='mx-auto text-center'>Login</h1>
             <form onSubmit={ onSubmit }>
                 <div className="form-group">

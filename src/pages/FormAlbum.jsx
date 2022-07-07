@@ -68,7 +68,7 @@ function FormAlbum () {
     }
 
     return(
-        <section className='pt-3 container'>
+        <section className='pt-3 container card mt-5 p-5'>
             <h3> Album { album.id }</h3>
             <form onSubmit={ saveAlbum } >
                 <div className="row">

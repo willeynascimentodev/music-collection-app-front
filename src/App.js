@@ -2,7 +2,8 @@ import './main.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ListArtists from './pages/ListArtists';
 import ListAlbums from './pages/ListAlbums';
-import FormAlbum from './pages/FormAlbum';
+import EditAlbum from './pages/EditAlbum';
+import CreateAlbum from './pages/CreateAlbum';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Header from './components/Header';
@@ -27,10 +28,10 @@ function App() {
             <Route path="/artists/:page" element={ <ListArtists /> } />
           </Route>
           <Route path="/create-album" element={ <PrivateRoute /> }>
-            <Route path="/create-album" element={ <FormAlbum /> } />
+            <Route path="/create-album" element={ <CreateAlbum /> } />
           </Route>
           <Route path="/edit-album/:album_id" element={ <PrivateRoute /> }>
-            <Route path="/edit-album/:album_id" element={ <FormAlbum /> } />
+            <Route path="/edit-album/:album_id" element={ <EditAlbum /> } />
           </Route>
           <Route path="/albums/:page" element={ <PrivateRoute /> }>
             <Route path="/albums/:page" element={ <ListAlbums /> } />

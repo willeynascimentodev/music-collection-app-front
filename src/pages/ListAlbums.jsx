@@ -71,7 +71,7 @@ function ListAlbums() {
 
                         { 
                             !albumsP ? 
-                                <span className='pt-5'>Artists not found</span>
+                                <span className='pt-5'>Albums not found</span>
                             :
                             albumsP.map((album) => (
                                 <tr key={ album.id }>

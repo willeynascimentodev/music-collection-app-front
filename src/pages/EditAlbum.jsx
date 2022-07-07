@@ -4,41 +4,52 @@ import { useDispatch, useSelector } from 'react-redux';
 import { insertAlbum, getAlbum, updateAlbum } from '../features/albums/albumsSlice';
 import { getArtists, getArtist } from "../features/artists/artistsSlice";
 
-function FormAlbum () {
+function EditAlbum () {
 
-    const { artists, artist, isSuccess } = useSelector((state) => state.artists);
+    const { artists } = useSelector((state) => state.artists);
     const { album } = useSelector((state) => state.albums);
     const { album_id } = useParams();
+
+    const dispatch = useDispatch();
     
     const navigate = useNavigate();
+
+    let artist = null;
+    let artistsUnselected = null;
+
+    const [formData, setFormData] = useState({
+        artist_id_state:  null,
+        album_name_state: '',
+        year_state: null,
+    });
     
     useEffect( () => {
 
         const fetch = async () => {
-            await dispatch(getArtists());
+            dispatch(getArtists());
             if (album_id) {
-                await dispatch(getAlbum(album_id));
-                await dispatch(getArtist(album.artist_id));
+                dispatch(getAlbum(album_id));
             }
+            
         }
 
         fetch();
         
     }, []);
 
-    const [formData, setFormData] = useState({
-        artist_id_state: album.artist_id ? album.artist_id : 1,
-        album_name_state: album.album_name ? album.album_name : null,
-        year_state: album.year ? album.year : null,
-    });
+    if(!album) {
+        return <div class='p-5'>Loading...</div>
+    }
 
     const { album_name_state, artist_id_state, year_state } = formData
 
-    const onChange = (e) => {
-        setForm(e);
+    if(artists && album) {
+        artistsUnselected = artists.filter( (artist) => { return artist.id != album.artist_id});
+        artist = artists.filter( (artist) => { return artist.id == album.artist_id})[0];
     }
+    
 
-    const setForm = (e) => {
+    const onChange = (e) => {
         setFormData( (prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -47,21 +58,19 @@ function FormAlbum () {
 
     const saveAlbum = (e) => {
         e.preventDefault();
+        
         let albumData = {
             artist_id: artist_id_state ? artist_id_state : album.artist_id,
             album_name: album_name_state ? album_name_state : album.album_name,
-            year: year_state ? year_state : album.year 
+            year: year_state ? year_state : album.year,
         };
     
         if(album_id) {
             albumData.id = album_id;
+            console.log(albumData);
             dispatch(updateAlbum(albumData));
-        } else {
-            dispatch(insertAlbum(albumData));
-        }
+        } 
     };
-
-    const dispatch = useDispatch();
 
     const back = () => {
         navigate('/albums/1');
@@ -69,7 +78,7 @@ function FormAlbum () {
 
     return(
         <section className='pt-3 container card mt-5 p-5'>
-            <h3> Album { album.id }</h3>
+            <h3> Album { album ? album.id : '' }</h3>
             <form onSubmit={ saveAlbum } >
                 <div className="row">
                     <div className="form-group col-sm-12 col-md-4">
@@ -77,28 +86,21 @@ function FormAlbum () {
                         <select required onChange={ onChange } name="artist_id_state" id="artist_id_state" className="col-sm-12 form-control">
                                 
                                 {
-                                    album ?
-                                        <option key={ album.artist_id } value={ album.artist_id }> </option>
-                                    :
+                                    album && artist ?
+                                            <option key={ album.artist_id } value={ album.artist_id }> { artist.name } </option> : ''
 
-                                    ''
                                 } 
-                                
                                 {
-                                    artists ?
-                                    artists.map((artist) => (
+                                    artistsUnselected ?        
+                                    artistsUnselected.map((artist) => (
                                         <option key={ artist.id } value={ artist.id }> { artist.name } </option>
-                                    ))
-
-                                    :
-
-                                    ''
-                                } 
+                                    )) : ''
+                                }
                         </select>
                     </div>
                     <div className="form-group col-sm-12 col-md-4">
                         <label>Year</label>
-                        <input name="year_state" id="year_state" required onChange={ onChange } value={ year_state ? year_state : album.year } type="number" min="1500" max="2022" className="col-sm-12 form-control"/>
+                        <input name="year_state" id="year_state" required onChange={ onChange } value={ year_state ? year_state : album.year } type="number" min="1500" max="2023" className="col-sm-12 form-control"/>
                     </div>
                     <div className="form-group col-sm-12 col-md-4">
                         <label>Nome</label>
@@ -119,4 +121,4 @@ function FormAlbum () {
     )
 } 
 
-export default FormAlbum;
+export default EditAlbum;

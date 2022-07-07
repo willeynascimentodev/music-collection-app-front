@@ -5,7 +5,7 @@ const API_PATH = 'http://127.0.0.1:3000' + '/albums';
 
 const initialState = {
     albums : null,
-    album : {},
+    album : null,
     isSuccess: false,
     isError: false,
     isLoading: false,

@@ -36,7 +36,9 @@ function AlbumItem ({album}) {
                         'Your item has been deleted.',
                         'success'
                     )
+                    window.location.reload();
                 }
+                
             }
         });
     }

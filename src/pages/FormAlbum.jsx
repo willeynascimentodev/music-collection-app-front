@@ -64,7 +64,7 @@ function FormAlbum () {
     const dispatch = useDispatch();
 
     const back = () => {
-        navigate('/albums');
+        navigate('/albums/1');
     }
 
     return(
@@ -75,11 +75,24 @@ function FormAlbum () {
                     <div className="form-group col-sm-12 col-md-4">
                         <label>Artista</label>
                         <select required onChange={ onChange } name="artist_id_state" id="artist_id_state" className="col-sm-12 form-control">
-                                <option key={ album.artist_id } value={ album.artist_id }> </option>
+                                
                                 {
+                                    album ?
+                                        <option key={ album.artist_id } value={ album.artist_id }> </option>
+                                    :
+
+                                    ''
+                                } 
+                                
+                                {
+                                    artists ?
                                     artists.map((artist) => (
                                         <option key={ artist.id } value={ artist.id }> { artist.name } </option>
                                     ))
+
+                                    :
+
+                                    ''
                                 } 
                         </select>
                     </div>

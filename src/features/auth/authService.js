@@ -17,8 +17,14 @@ const login = async (user) => {
 
 }
 
+const logout = async () => {
+    localStorage.removeItem('user');
+    return toast.success('Logged Out');
+}
+
 const authService = {
-    login
+    login,
+    logout
 }
 
 export default authService;

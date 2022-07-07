@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import Swal from 'sweetalert2';
 import { deleteAlbum, getAlbums } from '../features/albums/albumsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useAuthStatus } from '../hooks/useAuthStatus';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { getArtist } from '../features/artists/artistsSlice';
 
 
 function AlbumItem ({album}) {
@@ -14,6 +14,8 @@ function AlbumItem ({album}) {
     const { user } = useSelector((state) => state.auth)
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const deleteItem = () => {
         
@@ -34,14 +36,10 @@ function AlbumItem ({album}) {
                         'Your item has been deleted.',
                         'success'
                     )
-                    dispatch(getAlbums());
                 }
             }
         });
     }
-
-    useEffect(() => {
-    }, [])
 
     return (
         <>

@@ -13,7 +13,7 @@ const initialState =  {
     message: ''
 }
 
-export const login = createAsyncThunk(API_PATH, async (user, thunkAPI) => {
+export const login = createAsyncThunk('login', async (user, thunkAPI) => {
     try {
         return await authService.login(user);
     } catch (error) {
@@ -21,6 +21,14 @@ export const login = createAsyncThunk(API_PATH, async (user, thunkAPI) => {
         
     }
 });
+
+export const logout = createAsyncThunk('logout', async (_, thunkAPI) => {
+    try {
+        authService.logout();
+    } catch (error) {
+        toast.error("Sorry, Unexpected error.");
+    }
+})
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -48,6 +56,19 @@ export const authSlice = createSlice({
             state.message = action.payload
             state.user = null
         })   
+        .addCase(logout.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(logout.fulfilled, (state, action) => {
+            state.isloading = false
+            state.isSuccess = true
+            state.user = null
+        })
+        .addCase(logout.rejected, (state, action) => {
+            state.isloading = false
+            state.isError = true
+            state.message = action.payload
+        }) 
     }
 });
 

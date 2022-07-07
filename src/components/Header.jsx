@@ -1,6 +1,25 @@
-import { Link } from 'react-router-dom';
+import NavDesktop from '../components/NavDesktop';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logout, reset } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Header () {
+
+    const { user } = useSelector( 
+        (state) => state.auth    
+    );
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const logoutHeader = () => {
+        dispatch(logout());
+        if(!user) {
+            navigate('/login')
+        }
+    }
 
     return (
         <header>
@@ -9,14 +28,8 @@ function Header () {
                     Music Collection
                 </span>
                 <div className="collapse navbar-collapse text-right" id="navbarTogglerDemo01">
-                    <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li className="nav-item">
-                            <Link className='nav-link' to="/login">Sign In</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className='nav-link' to="/registration">Create an account</Link>
-                        </li>
-                    </ul>
+
+                    <NavDesktop user={ user } logout={ logoutHeader }/>
                 </div>
             </nav>
         </header>

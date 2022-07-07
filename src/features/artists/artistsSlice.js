@@ -4,7 +4,7 @@ import artistsService from './artistsService';
 const API_PATH = 'https://testapi.io/api/willeynascimento/artists';
 
 const initialState = {
-    artists: [],
+    artists: null,
     artist: {},
     isSuccess: false,
     isError: false,

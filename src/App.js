@@ -23,8 +23,8 @@ function App() {
           <Route path="/" element={ <PrivateRoute /> }>
             <Route path="/artists" element={ <ListArtists /> } />
           </Route>
-          <Route path="/artists" element={ <PrivateRoute /> }>
-            <Route path="/artists" element={ <ListArtists /> } />
+          <Route path="/artists/:page" element={ <PrivateRoute /> }>
+            <Route path="/artists/:page" element={ <ListArtists /> } />
           </Route>
           <Route path="/create-album" element={ <PrivateRoute /> }>
             <Route path="/create-album" element={ <FormAlbum /> } />
@@ -32,8 +32,8 @@ function App() {
           <Route path="/edit-album/:album_id" element={ <PrivateRoute /> }>
             <Route path="/edit-album/:album_id" element={ <FormAlbum /> } />
           </Route>
-          <Route path="/albums" element={ <PrivateRoute /> }>
-            <Route path="/albums" element={ <ListAlbums /> } />
+          <Route path="/albums/:page" element={ <PrivateRoute /> }>
+            <Route path="/albums/:page" element={ <ListAlbums /> } />
           </Route>          
         </Routes>
       </Router>

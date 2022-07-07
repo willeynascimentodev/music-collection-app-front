@@ -1,14 +1,17 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums, reset } from "../features/albums/albumsSlice";
 import AlbumItem from '../components/AlbumItem';
+import { paginate } from '../Helpers/Paginator';
+import Paginator from '../components/Paginator'
 
 function ListAlbums() {
 
     const { albums, isSuccess, isLoading } = useSelector((state) => state.albums)
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { page } = useParams();
 
     useEffect(() => {
         return () => {
@@ -21,6 +24,14 @@ function ListAlbums() {
     useEffect(() => {
         dispatch(getAlbums());
     }, [dispatch]);
+
+    let albumsP = null;
+
+    const perPage = 2;
+
+    if (albums) {
+        albumsP = paginate(albums, page ? page : 1, perPage);
+    }
 
 
     const newAlbum = () => {
@@ -39,6 +50,12 @@ function ListAlbums() {
             </div>
             
             <div className="table-responsive">
+                    { 
+                        !albums ? 
+                            ''
+                        :
+                        <Paginator items={ albums.length } perPage= { perPage }/>             
+                    }
                 <table className='table'>
                     <thead>
                         <tr>
@@ -51,11 +68,18 @@ function ListAlbums() {
                         </tr>
                     </thead>
                     <tbody>
-                        { albums.map((album) => (
-                            <tr key={ album.id }>
-                                <AlbumItem album={album} />
-                            </tr>
-                        ))}
+
+                        { 
+                            !albumsP ? 
+                                <span className='pt-5'>Artists not found</span>
+                            :
+                            albumsP.map((album) => (
+                                <tr key={ album.id }>
+                                    <AlbumItem album={album} />
+                                </tr>
+                            ))                       
+                        } 
+                       
                     </tbody>
                 </table>
             </div>

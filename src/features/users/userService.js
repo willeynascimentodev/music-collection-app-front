@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { login } from '../auth/authSlice';
 
 
 const API_PATH = 'http://127.0.0.1:3000' + '/users';

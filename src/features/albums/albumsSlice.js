@@ -4,7 +4,7 @@ import albumsService from './albumsService';
 const API_PATH = 'http://127.0.0.1:3000' + '/albums';
 
 const initialState = {
-    albums : [],
+    albums : null,
     album : {},
     isSuccess: false,
     isError: false,

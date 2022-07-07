@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 
 
-const API_PATH = 'https://mocki.io/v1/1da0b183-e02e-4f29-8f86-4c4abdeac672';
+const API_PATH = 'https://testapi.io/api/willeynascimento/artists';
 
 const getArtists = async () => {
     
@@ -12,14 +12,24 @@ const getArtists = async () => {
             header1: "Basic ZGV2ZWxvcGVyOlpHVjJaV3h2Y0dWeQ=="
         }
     };
-
     const response = await axios.get(API_PATH, config);
-    console.log(response.data);
     return response.data;
 }
 
+const getArtist = async (id) => {
+    
+    const config = {
+        headers: {
+            header1: "Basic ZGV2ZWxvcGVyOlpHVjJaV3h2Y0dWeQ=="
+        }
+    };
+    const response = await axios.get(API_PATH, config);
+    return response.data.filter( (artist) => { return artist.id == id}) ;
+}
+
 const authService = {
-    getArtists
+    getArtists,
+    getArtist
 }
 
 export default authService;

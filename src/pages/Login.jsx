@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useAuthStatus } from '../hooks/useAuthStatus';
 
 function Login() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const { loggedIn, loading } = useAuthStatus();
     const [formData, setFormData] = useState({
         username: '',
@@ -43,7 +44,6 @@ function Login() {
         if(user){
             navigate('/artists')
         }
-
         dispatch(reset)
     }, [user, navigate]);
 
@@ -79,7 +79,8 @@ function Login() {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="mt-2 d-flex justify-content-between">
+                    <Link to='/registration' className="mt-2 btn btn-secondary">Registration</Link>
                     <button className="mt-2 btn btn-success">Login</button>
                 </div>
             </form>

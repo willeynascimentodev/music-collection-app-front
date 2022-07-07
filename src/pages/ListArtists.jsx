@@ -8,9 +8,7 @@ function ListArtists() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
         dispatch(getArtists());
-
     }, []);
 
 
@@ -31,10 +29,10 @@ function ListArtists() {
                     </thead>
                     <tbody>
                         { artists.map((artist) => (
-                            <tr key={ artist[0].id }>
-                                <td>{ artist[0].id }</td>
-                                <td>{ artist[0].name }</td>
-                                <td>{ artist[0].twitter }</td>
+                            <tr key={ artist.id }>
+                                <td>{ artist.id }</td>
+                                <td>{ artist.name }</td>
+                                <td>{ artist.twitter }</td>
                             </tr>
                         ))}
                     </tbody>

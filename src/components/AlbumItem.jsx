@@ -2,11 +2,17 @@ import PropTypes from 'prop-types'
 import Swal from 'sweetalert2';
 import { deleteAlbum, getAlbums } from '../features/albums/albumsSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useAuthStatus } from '../hooks/useAuthStatus';
+import { useEffect } from 'react';
 
 
 function AlbumItem ({album}) {
 
     const { isSuccess } = useSelector((state) => state.albums)
+
+    const { user } = useSelector((state) => state.auth)
+
     const dispatch = useDispatch();
 
     const deleteItem = () => {
@@ -34,6 +40,9 @@ function AlbumItem ({album}) {
         });
     }
 
+    useEffect(() => {
+    }, [])
+
     return (
         <>
             <td>{ album.id }</td>
@@ -41,15 +50,21 @@ function AlbumItem ({album}) {
             <td>{ album.album_name }</td>
             <td>{ album.created_at }</td>
             <td>
-                <button className="btn btn-secondary">Edit</button>
+                <Link to={`/edit-album/${album.id}`} className="btn btn-secondary">Edit</Link>
             </td>
             <td>
-                <button 
-                    className="btn btn-danger"
-                    onClick = { deleteItem }
-                >
-                    Delete
-                </button>
+                { user.user.role == 'admin' ?
+                    <button 
+                        className="btn btn-danger"
+                        onClick = { deleteItem }
+                    >
+                        Delete
+                    </button>
+                    :
+
+                    'Not Allowed'
+                }
+                
             </td>
         </>
     )

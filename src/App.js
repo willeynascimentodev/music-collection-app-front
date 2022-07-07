@@ -29,8 +29,8 @@ function App() {
           <Route path="/create-album" element={ <PrivateRoute /> }>
             <Route path="/create-album" element={ <FormAlbum /> } />
           </Route>
-          <Route path="/edit-album" element={ <PrivateRoute /> }>
-            <Route path="/edit-album" element={ <FormAlbum /> } />
+          <Route path="/edit-album/:album_id" element={ <PrivateRoute /> }>
+            <Route path="/edit-album/:album_id" element={ <FormAlbum /> } />
           </Route>
           <Route path="/albums" element={ <PrivateRoute /> }>
             <Route path="/albums" element={ <ListAlbums /> } />

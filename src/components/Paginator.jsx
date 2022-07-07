@@ -20,21 +20,24 @@ function Paginator ({items, perPage}) {
     }
 
     
-    const item = {
-        color: 'gray',
-        padding: '10px',
-        backgroundColor: 'lightgray',
-        borderRadius: '10px',
-        fontSize: '13px',
-        textDecoration: 'none'
-    };    
+    const item = (p) => {
+        
+        return ({ 
+            color: oldRoute.at(-1) == p? 'white' : 'gray',
+            padding: '10px',
+            backgroundColor: oldRoute.at(-1) == p? 'gray' : 'lightgray',
+            borderRadius: '10px',
+            fontSize: '13px',
+            textDecoration: 'none'
+        })
+    }    
 
     return (
         <>
             <div className="p-3 text-center">
                 { 
                     pages.map((p)=> (
-                        <Link to={`${newRoute}/${p}`} key={p} style={item} className="item d-inline m-1">{p}</Link>
+                        <Link to={`${newRoute}/${p}`} key={p} style={ item(p) } className="d-inline m-1">{p}</Link>
                     ))
                 }
             </div>

@@ -54,7 +54,7 @@ function ListAlbums() {
                         !albums ? 
                             ''
                         :
-                        <Paginator items={ albums.length } perPage= { perPage }/>             
+                        <Paginator items={ albums.length } perPage={ perPage } col={'albums'} page={ page }/>           
                     }
                 <table className='table'>
                     <thead>

@@ -1,31 +1,30 @@
 import PropTypes from 'prop-types';
-import { useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Paginator ({items, perPage}) {
+function Paginator ({items, perPage, col, page}) {
     const totalPages = Math.ceil(items/perPage);
     const pages = [];
-    const location = useLocation();
+    
+    if(page == undefined) {
+        page = 1;
+    }
 
+    console.log(page);
+    
     for(let i=0; i<totalPages; i++) {
         pages.push(i+1);
     }
 
-    const oldRoute = location.pathname.split('/');
-    let newRoute = '';
-
-    for(let i=0; i<oldRoute.length-1; i++) {
-        if ( oldRoute[i] != '' ) {
-            newRoute += "/"+oldRoute[i];
-        }
-    }
+    let newRoute = `/${col}`;
 
     
+
     const item = (p) => {
         
         return ({ 
-            color: oldRoute.at(-1) == p? 'white' : 'gray',
+            color: page == p ? 'white' : 'gray',
             padding: '10px',
-            backgroundColor: oldRoute.at(-1) == p? 'gray' : 'lightgray',
+            backgroundColor: page == p ? 'gray' : 'lightgray',
             borderRadius: '10px',
             fontSize: '13px',
             textDecoration: 'none'

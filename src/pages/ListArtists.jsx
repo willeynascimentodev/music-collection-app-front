@@ -38,7 +38,7 @@ function ListArtists() {
                         !artists ? 
                             ''
                         :
-                        <Paginator items={ artists.length } perPage= { perPage }/>             
+                        <Paginator items={ artists.length } perPage={ perPage } col={'artists'} page={ page }/>             
                     }
                 
                 <table className='table'>

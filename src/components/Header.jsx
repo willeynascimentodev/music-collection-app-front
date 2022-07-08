@@ -1,8 +1,11 @@
-import NavDesktop from '../components/NavDesktop';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { logout, reset } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 function Header () {
 
@@ -14,7 +17,7 @@ function Header () {
 
     const navigate = useNavigate();
 
-    const logoutHeader = () => {
+    const logoutSystem = () => {
         dispatch(logout());
         if(!user) {
             navigate('/login')
@@ -22,17 +25,40 @@ function Header () {
     }
 
     return (
-        <header>
-            <nav className="p-3 nav navbar-expand-lg navbar-light bg-light">
-                <span className="navbar-brand">
-                    Music Collection
-                </span>
-                <div className="collapse navbar-collapse text-right" id="navbarTogglerDemo01">
-
-                    <NavDesktop user={ user } logout={ logoutHeader }/>
-                </div>
-            </nav>
-        </header>
+        <Navbar bg="light" expand="lg">
+            <Container>
+                <Navbar.Brand href="#home">Music App</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
+                    { !user ?
+                        <>
+                            <li className="nav-item">
+                                <Nav.Link href="/login">Sign In</Nav.Link>
+                            </li>
+                            <li className="nav-item">
+                                <Nav.Link href="/registration">Create an account</Nav.Link>
+                            </li>
+                        </>
+                    :
+                        <>
+                            <li className="nav-item">
+                                <Nav.Link href="/artists/1">Artists</Nav.Link>
+                                
+                            </li>
+                            <li className="nav-item">
+                            <Nav.Link href="/albums/1">Albums</Nav.Link>
+                            </li>
+                            <li className="nav-item">
+                                <span onClick={ logoutSystem } className='btn nav-link' to="/albums/1">Logout</span>
+                            </li>
+                        </>
+                    
+                    }
+                </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 }
 

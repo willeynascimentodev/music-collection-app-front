@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import artistsService from './artistsService';
 
-const API_PATH = 'https://testapi.io/api/willeynascimento/artists';
+const API_PATH = process.env.REACT_APP_ARTISTS_URL;
 
 const initialState = {
     artists: null,

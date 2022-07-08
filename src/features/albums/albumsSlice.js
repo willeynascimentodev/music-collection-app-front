@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import albumsService from './albumsService';
 
-const API_PATH = 'http://127.0.0.1:3000' + '/albums';
+const API_PATH = process.env.REACT_APP_API_URL + '/albums';
 
 const initialState = {
     albums : null,

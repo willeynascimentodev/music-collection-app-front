@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import userService from './userService';
 import { toast } from 'react-toastify';
 
-const API_PATH = 'http://127.0.0.1:3000' + '/users';
+const API_PATH = process.env.REACT_APP_API_URL + '/users';
 
 const user = JSON.parse(localStorage.getItem('user'));
 

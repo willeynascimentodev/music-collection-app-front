@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_PATH = 'http://127.0.0.1:3000' + '/albums';
+const API_PATH = process.env.REACT_APP_API_URL + '/albums';
 
 const getAlbums = async (token) => {
     

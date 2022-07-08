@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 
 
-const API_PATH = 'https://testapi.io/api/willeynascimento/artists';
+const API_PATH = process.env.REACT_APP_ARTISTS_URL;
 
 const getArtists = async () => {
     
